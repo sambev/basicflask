@@ -7,6 +7,6 @@
     "devDependencies" : {
         "grunt" : "~0.4.2",
         "grunt-contrib-watch" : "~0.5.3",
-        "grunt-contib-compass" : "~0.7.1"
+        "grunt-contrib-compass" : "~0.7.1"
     }
 }
