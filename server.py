@@ -4,11 +4,28 @@ from config.jinjacfg import render
 
 app = Flask(__name__)
 
-@app.route("/")
-def index():
-    return render('index.html')
+
+def buildApp(env='dev'):
+
+    # Get the right config for the environment
+    if env == 'dev':
+        from config.dev import config
+        app.config.update(config)
+    elif env == 'test':
+        from config.test import config
+        app.config.update(config)
+    elif env == 'production':
+        from config.production import config
+        app.config.update(config)
+
+
+    @app.route("/")
+    def index():
+        return render('index.html')
+
+    return app
 
 
 if __name__ == "__main__":
-    app.debug = True
+    app = buildApp()
     app.run()
