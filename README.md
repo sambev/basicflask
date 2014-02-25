@@ -13,9 +13,9 @@ You can use https://github.com/sambev/thirsty to download and install the depend
 
 If you didn't do that or the script failed you can run these commands to get them again:
 
-`pip install -r requirements.txt`
-`npm install`
-`bower install`
+* `pip install -r requirements.txt`
+* `npm install`
+* `bower install`
 
 
 Running the server:
