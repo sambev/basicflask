@@ -1,7 +1,5 @@
 from flask import Flask, request, Response, render_template
 from config.jinjacfg import setUpJinjaEnv
-from util.pbkdf2 import pbkdf2_hex
-from util.salts import getRandomSalt
 from controllers.auth import login, signup
 
 
