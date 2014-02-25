@@ -1,10 +1,11 @@
-from flask import Flask, request, Response
-from config.jinjacfg import render
+from flask import Flask, request, Response, render_template
+from config.jinjacfg import setUpJinjaEnv
 from util.pbkdf2 import pbkdf2_hex
 from util.salts import getRandomSalt
 
 
 app = Flask(__name__)
+setUpJinjaEnv(app)
 
 
 def buildApp(env='dev'):
@@ -25,7 +26,7 @@ def buildApp(env='dev'):
     def index():
         """ Render the home page """
         if request.method == 'GET':
-            return render('index.html')
+            return render_template('index.html')
 
 
     @app.route("/login")
@@ -47,7 +48,7 @@ def buildApp(env='dev'):
                     thehash = pbkdf2_hex(passwd.encode('utf-8'), salt.encode('utf-8'))
                 else:
                     error = 'Invalid Credentials'
-                    return render('home.html', { 'error': error })
+                    return render_template('home.html', { 'error': error })
 
                 if thehash == user['hash']:
                     # store user id in the session
@@ -55,10 +56,10 @@ def buildApp(env='dev'):
                     return redirect('/company_list')
                 else:
                     error = 'Invalid Credentials'
-                    return render('home.html', { 'error': error })
+                    return render_template('home.html', { 'error': error })
             else:
                 error = 'Invalid Credentials'
-                return render('home.html', { 'error': error })
+                return render_template('home.html', { 'error': error })
 
 
     @app.route('/signup')
@@ -67,12 +68,12 @@ def buildApp(env='dev'):
             *Requires some sort of database
         """
         if request.method == 'GET':
-            return render('signup.html')
+            return render_template('signup.html')
 
         if request.method == 'POST':
             if request.form['userpass'] != request.form['userpass2']:
                 error = 'Passwords do not match'
-                return render('signup.html', { 'error': error })
+                return render_template('signup.html', { 'error': error })
 
             salt =  getRandomSalt(16)
             thehash = pbkdf2_hex(request.form['userpass'].encode('utf-8'), salt.encode('utf-8'))
