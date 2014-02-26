@@ -1,23 +1,15 @@
 from flask import Flask, request, Response, render_template
 from config.jinjacfg import setUpJinjaEnv
 from controllers.auth import login, signup
-
-
-app = Flask(__name__)
-setUpJinjaEnv(app)
+from config.settings import SETTINGS
 
 
 def buildApp(env='dev'):
 
-    # Get the right config for the environment
-    if env == 'dev':
-        from config.dev import config
-    elif env == 'test':
-        from config.test import config
-    elif env == 'production':
-        from config.production import config
+    app = Flask(__name__)
+    setUpJinjaEnv(app)
+    app.config.update(SETTINGS[env])
 
-    app.config.update(config)
 
     # You can define routes this way
     @app.route('/')
