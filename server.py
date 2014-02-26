@@ -12,23 +12,31 @@ def buildApp(env='dev'):
     # Get the right config for the environment
     if env == 'dev':
         from config.dev import config
-        app.config.update(config)
     elif env == 'test':
         from config.test import config
-        app.config.update(config)
     elif env == 'production':
         from config.production import config
-        app.config.update(config)
 
+    app.config.update(config)
 
-    @app.route("/")
+    # You can define routes this way
+    @app.route('/')
     def index():
-        """ Render the home page """
+        """ Render the landing page """
         if request.method == 'GET':
             return render_template('index.html')
 
-    app.add_url_rule('/login', 'login', login)
-    app.add_url_rule('/signup', 'signup', signup)
+
+    @app.route('/home')
+    def home():
+        """ render the home page """
+        if request.method == 'GET':
+            return render_template('home.html')
+
+
+    # Or this way.  There are others as well
+    app.add_url_rule('/login', 'login', login, methods=['GET', 'POST'])
+    app.add_url_rule('/signup', 'signup', signup, methods=['GET', 'POST'])
 
     return app
 

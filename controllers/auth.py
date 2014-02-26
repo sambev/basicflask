@@ -1,4 +1,4 @@
-from flask import request, render_template
+from flask import request, render_template, session, redirect
 from util.pbkdf2 import pbkdf2_hex
 from util.salts import getRandomSalt
 
@@ -10,6 +10,9 @@ def login():
         # Get the user information
         name = request.form['username']
         passwd = request.form['userpass']
+
+        #TODO remove this when you get a database up
+        return redirect('/home')
 
         # Find a user with that username an compare passwords
         res = db.users.find({ 'name': name })
@@ -57,7 +60,8 @@ def signup():
             'hash': unicode(thehash)
         }
 
-        user_id = db.users.save(new_user)
+        # You'll need a database to save it to
+        # user_id = db.users.save(new_user)
         # store user id in the session
         session['user'] = new_user['name']
 
