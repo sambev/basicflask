@@ -17,13 +17,14 @@ def login():
         # Find a user with that username an compare passwords
         res = db.users.find({ 'name': name })
         if res.count() > 0:
-            user = parseMongoResponse(res)[0]
+            # this doesn't exist, go find your users however you would with your db
+            # user = <find a user >
             if user:
                 salt = user['salt']
                 thehash = pbkdf2_hex(passwd.encode('utf-8'), salt.encode('utf-8'))
             else:
                 error = 'Invalid Credentials'
-                return render_template('home.html', { 'error': error })
+                return render_template('home.html', error=error)
 
             if thehash == user['hash']:
                 # store user id in the session
@@ -31,10 +32,10 @@ def login():
                 return redirect('/home')
             else:
                 error = 'Invalid Credentials'
-                return render_template('home.html', { 'error': error })
+                return render_template('home.html', error=error)
         else:
             error = 'Invalid Credentials'
-            return render_template('home.html', { 'error': error })
+            return render_template('home.html', error=error)
 
 
 
@@ -48,7 +49,7 @@ def signup():
     if request.method == 'POST':
         if request.form['userpass'] != request.form['userpass2']:
             error = 'Passwords do not match'
-            return render_template('signup.html', { 'error': error })
+            return render_template('signup.html', error=error)
 
         salt =  getRandomSalt(16)
         thehash = pbkdf2_hex(request.form['userpass'].encode('utf-8'), salt.encode('utf-8'))
