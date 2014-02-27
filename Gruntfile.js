@@ -24,7 +24,7 @@ module.exports = function(grunt) {
             allFiles: ['static/scss/*.scss'],
             options: {
                 config: 'config/scss-lint.yml',
-                reporterOutput: 'scss-lint-report.xml'
+                reporterOutput: 'build/lint/scss-lint-report.xml'
             },
         },
 
