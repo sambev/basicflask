@@ -1,12 +1,12 @@
 {
-    "name" : "myproject",
-    "version" : "0.0.0",
-    "author" : "Sam Beveridge",
-    "private" : true,
-
-    "devDependencies" : {
-        "grunt" : "~0.4.2",
-        "grunt-contrib-watch" : "~0.5.3",
-        "grunt-contrib-compass" : "~0.7.1"
-    }
+  "name": "myproject",
+  "version": "0.0.0",
+  "author": "Sam Beveridge",
+  "private": true,
+  "devDependencies": {
+    "grunt": "~0.4.2",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-scss-lint": "0.0.9",
+    "grunt-contrib-sass": "~0.7.2"
+  }
 }

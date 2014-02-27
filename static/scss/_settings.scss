@@ -3,11 +3,11 @@
 //
 
 // Uncomment to use rem-calc() in your settings
-@import "foundation/functions";
+@import 'static/vendor/foundation/scss/foundation/functions';
 
 // $experimental: true;
 
-// The default font-size is set to 100% of the browser style sheet (usually 16px)
+// The default font-size is set to 100% of the browser styles sheet (usually 16px)
 // for compatibility with brower-based text zoom or user-set defaults.
 
 // Since the typical default browser font-size is 16px, that makes the calculation for grid size.
@@ -30,7 +30,7 @@ $rem-base: 16px;
 
 // $include-html-grid-classes: $include-html-classes;
 
-$row-width: rem-calc(1140);
+$row-width: rem-calc(1200);
 $column-gutter: rem-calc(10);
 $total-columns: 12;
 

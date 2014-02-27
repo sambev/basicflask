@@ -2,39 +2,45 @@ module.exports = function(grunt) {
     var glob = {
         scss: [
             'static/scss/*.scss'
-        ],
-        css: [
-            'static/css/*.css',
-            '!static/css/base.css'
         ]
     };
 
     grunt.initConfig({
         pkg: grunt.file.readJSON('package.json'),
 
-        compass: {
+        sass: {
             dist: {
                 options: {
-                    config: 'config/compass.rb'
+                    quiet: true,
+                    style: 'compressed'
+                },
+                files: {
+                    'static/css/base.css': 'static/scss/base.scss',
                 }
             }
         },
 
+        scsslint: {
+            allFiles: ['static/scss/*.scss'],
+            options: {
+                config: 'config/scss-lint.yml',
+                reporterOutput: 'scss-lint-report.xml'
+            },
+        },
+
         watch: {
-            css: {
+            scss: {
                 files: glob.scss,
-                tasks: ['compass'],
-                options: {
-                    livereload: 35729
-                }
+                tasks: ['sass', 'quality'],
             },
         }
     });
 
-    grunt.registerTask('default', [
-        'watch'
-    ])
+    grunt.registerTask('default', ['watch']);
+    grunt.registerTask('scss', ['scss']);
+    grunt.registerTask('quality', ['scsslint']);
 
     grunt.loadNpmTasks('grunt-contrib-watch');
-    grunt.loadNpmTasks('grunt-contrib-compass');
+    grunt.loadNpmTasks('grunt-contrib-sass');
+    grunt.loadNpmTasks('grunt-scss-lint');
 }
