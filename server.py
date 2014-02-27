@@ -1,6 +1,7 @@
 from flask import Flask, request, Response, render_template
 from config.jinjacfg import setUpJinjaEnv
 from controllers.auth import login, signup
+from controllers.base import index, home
 from config.settings import SETTINGS
 
 
@@ -10,23 +11,8 @@ def buildApp(env='dev'):
     setUpJinjaEnv(app)
     app.config.update(SETTINGS[env])
 
-
-    # You can define routes this way
-    @app.route('/')
-    def index():
-        """ Render the landing page """
-        if request.method == 'GET':
-            return render_template('index.html')
-
-
-    @app.route('/home')
-    def home():
-        """ render the home page """
-        if request.method == 'GET':
-            return render_template('home.html')
-
-
-    # Or this way.  There are others as well
+    app.add_url_rule('/', 'index', index, methods=['GET'])
+    app.add_url_rule('/home', 'home', home, methods=['GET'])
     app.add_url_rule('/login', 'login', login, methods=['GET', 'POST'])
     app.add_url_rule('/signup', 'signup', signup, methods=['GET', 'POST'])
 

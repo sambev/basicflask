@@ -28,7 +28,7 @@ def login():
             if thehash == user['hash']:
                 # store user id in the session
                 session['user'] = user['name']
-                return redirect('/company_list')
+                return redirect('/home')
             else:
                 error = 'Invalid Credentials'
                 return render_template('home.html', { 'error': error })
