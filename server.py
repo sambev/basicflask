@@ -1,7 +1,7 @@
 from flask import Flask, request, Response, render_template
 from config.jinjacfg import setUpJinjaEnv
-from controllers.auth import login, signup
-from controllers.base import index, home
+from blueprints.auth import auth_bp
+from blueprints.base import base_bp
 from config.settings import SETTINGS
 
 
@@ -11,10 +11,8 @@ def buildApp(env='dev'):
     setUpJinjaEnv(app)
     app.config.update(SETTINGS[env])
 
-    app.add_url_rule('/', 'index', index, methods=['GET'])
-    app.add_url_rule('/home', 'home', home, methods=['GET'])
-    app.add_url_rule('/login', 'login', login, methods=['GET', 'POST'])
-    app.add_url_rule('/signup', 'signup', signup, methods=['GET', 'POST'])
+    app.register_blueprint(auth_bp)
+    app.register_blueprint(base_bp)
 
     return app
 

@@ -1,7 +1,12 @@
-from flask import request, render_template, session, redirect
+from flask import Blueprint, request, render_template, session, redirect
 from util.pbkdf2 import pbkdf2_hex
 from util.salts import getRandomSalt
 
+auth_bp = Blueprint('auth_bp', __name__,
+                    template_folder='templates')
+
+
+@auth_bp.route('/login', methods=['POST'])
 def login():
     """ Endpoint for authentication
         *Requires some sort of database
@@ -38,7 +43,7 @@ def login():
             return render_template('home.html', error=error)
 
 
-
+@auth_bp.route('/signup', methods=['GET', 'POST'])
 def signup():
     """ End Point for signups
         *Requires some sort of database
