@@ -28,6 +28,21 @@ module.exports = function(grunt) {
             },
         },
 
+        shell: {
+            pep8: {
+                options: {
+                    stdout: true
+                },
+                command: [
+                    'pep8 *.py',
+                    'pep8 blueprints/*.py',
+                    'pep8 util/*.py',
+                    'pep8 config/*.py',
+                    'pep8 tests/python/*.py'
+                ].join(';')
+            }
+        },
+
         watch: {
             scss: {
                 files: glob.scss,
@@ -38,9 +53,11 @@ module.exports = function(grunt) {
 
     grunt.registerTask('default', ['watch']);
     grunt.registerTask('scss', ['scss']);
-    grunt.registerTask('quality', ['scsslint']);
+    grunt.registerTask('quality', ['scsslint', 'shell:pep8']);
+    grunt.registerTask('pep8', ['shell:pep8'])
 
     grunt.loadNpmTasks('grunt-contrib-watch');
     grunt.loadNpmTasks('grunt-contrib-sass');
     grunt.loadNpmTasks('grunt-scss-lint');
+    grunt.loadNpmTasks('grunt-shell');
 }

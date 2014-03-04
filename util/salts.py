@@ -4,7 +4,6 @@ import random
 def getRandomSalt(length):
     """
     Generate a random salt at length characters.
-
     param: length (int) - How long the salt should be
     """
     r = random.SystemRandom()

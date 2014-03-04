@@ -1,4 +1,5 @@
-import os, unittest
+import os
+import unittest
 from server import buildApp
 
 
@@ -8,12 +9,10 @@ class BasicTest(unittest.TestCase):
         """ setup test app and get a handle to the database """
         self.app = buildApp('test').test_client()
 
-
     def tearDown(self):
         """Clean up the database"""
         # self.db.problems.remove()
         pass
-
 
     def testGet(self):
         """ A GET request to / (root) should return a 200 OK """

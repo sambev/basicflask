@@ -2,11 +2,11 @@ from flask import Blueprint, request, render_template, session, redirect
 from util.pbkdf2 import pbkdf2_hex
 from util.salts import getRandomSalt
 
-auth_bp = Blueprint('auth_bp', __name__,
-                    template_folder='templates')
+auth = Blueprint('auth', __name__,
+                 template_folder='templates')
 
 
-@auth_bp.route('/login', methods=['POST'])
+@auth.route('/login', methods=['POST'])
 def login():
     """ Endpoint for authentication
         *Requires some sort of database
@@ -17,16 +17,17 @@ def login():
         passwd = request.form['userpass']
 
         #TODO remove this when you get a database up
+        #return early so the code below doesn't break everything
         return redirect('/home')
 
         # Find a user with that username an compare passwords
-        res = db.users.find({ 'name': name })
+        res = db.users.find({'name': name})
         if res.count() > 0:
-            # this doesn't exist, go find your users however you would with your db
-            # user = <find a user >
+            # user = <find a user with your db>
             if user:
                 salt = user['salt']
-                thehash = pbkdf2_hex(passwd.encode('utf-8'), salt.encode('utf-8'))
+                thehash = pbkdf2_hex(passwd.encode('utf-8'),
+                                     salt.encode('utf-8'))
             else:
                 error = 'Invalid Credentials'
                 return render_template('home.html', error=error)
@@ -43,7 +44,7 @@ def login():
             return render_template('home.html', error=error)
 
 
-@auth_bp.route('/signup', methods=['GET', 'POST'])
+@auth.route('/signup', methods=['GET', 'POST'])
 def signup():
     """ End Point for signups
         *Requires some sort of database
@@ -56,8 +57,9 @@ def signup():
             error = 'Passwords do not match'
             return render_template('signup.html', error=error)
 
-        salt =  getRandomSalt(16)
-        thehash = pbkdf2_hex(request.form['userpass'].encode('utf-8'), salt.encode('utf-8'))
+        salt = getRandomSalt(16)
+        thehash = pbkdf2_hex(request.form['userpass'].encode('utf-8'),
+                             salt.encode('utf-8'))
 
         # Make a new user out of the info
         new_user = {

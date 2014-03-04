@@ -1,7 +1,7 @@
 from flask import Flask, request, Response, render_template
 from config.jinjacfg import setUpJinjaEnv
-from blueprints.auth import auth_bp
-from blueprints.base import base_bp
+from blueprints.auth import auth
+from blueprints.base import base
 from config.settings import SETTINGS
 
 
@@ -11,7 +11,7 @@ def buildApp(env='dev'):
     setUpJinjaEnv(app)
     app.config.update(SETTINGS[env])
 
-    app.register_blueprint(auth_bp)
+    app.register_blueprint(auth)
     app.register_blueprint(base_bp)
 
     return app
