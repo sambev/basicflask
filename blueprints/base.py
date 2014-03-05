@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template
 
 base = Blueprint('base', __name__,
-                    template_folder='templates')
+                 template_folder='templates')
 
 
 @base.route('/', methods=['GET'])

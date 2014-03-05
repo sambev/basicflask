@@ -12,7 +12,7 @@ def buildApp(env='dev'):
     app.config.update(SETTINGS[env])
 
     app.register_blueprint(auth)
-    app.register_blueprint(base_bp)
+    app.register_blueprint(base)
 
     return app
 

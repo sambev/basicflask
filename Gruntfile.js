@@ -2,6 +2,13 @@ module.exports = function(grunt) {
     var glob = {
         scss: [
             'static/scss/*.scss'
+        ],
+        python: [
+            '*.py',
+            'blueprints/*.py',
+            'config/*.py',
+            'tests/python/*.py',
+            'util/python/*.py'
         ]
     };
 
@@ -48,6 +55,10 @@ module.exports = function(grunt) {
                 files: glob.scss,
                 tasks: ['sass', 'quality']
             },
+            pep8: {
+                files: glob.python,
+                tasks: ['shell:pep8']
+            }
         }
     });
 
