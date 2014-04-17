@@ -4,7 +4,7 @@ My Project README
 Dependencies:
 -------------
 Python - see requirements.txt file.
-Ruby - Sass and Compass.
+Ruby - see Gemfile.
 JS - see bower.json and package.json files.
 
 You should change bower.json and package.json files package name to whatever your projects name is
