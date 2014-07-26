@@ -20,4 +20,6 @@ If you didn't do that or the script failed you can run these commands to get the
 
 Running the server:
 -------------------
+Before you get started, run the config_setup in the config directory to get
+started.  Then you should just be able to:
 `python server.py`

@@ -6,7 +6,7 @@ from config.settings import SETTINGS
 
 app = Flask(__name__)
 setUpJinjaEnv(app)
-app.config.update(SETTINGS['dev'])
+app.config.update(SETTINGS)
 
 app.register_blueprint(main)
 
