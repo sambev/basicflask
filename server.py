@@ -1,5 +1,5 @@
 from flask import Flask, request, Response, render_template
-from app.api.main import main
+from app.blueprints.main import main
 from config.jinjacfg import setUpJinjaEnv
 from config.settings import SETTINGS
 
